@@ -32,6 +32,17 @@ function createFirstNumber(e) {
     console.log(`create:`, calc.firstNumber);
     displayFirstNumber();
 }
+
+function clearCalc() {
+    delete calc.firstNumber;
+    delete calc.operator;
+    delete calc.secondNumber;
+    delete calc.result;
+  
+    let display = document.querySelector('.display');
+    display.innerText = '0';
+}
+
 let calc = {};
 
 function btnClicked(e) {
@@ -51,6 +62,9 @@ function btnClicked(e) {
     createFirstNumber(e);
    }
 
+   if(e.target.className === 'clear') {
+    
+    clearCalc();
    
-
+}
 }
