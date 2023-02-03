@@ -9,10 +9,10 @@ function activateCalc(e) {
     }); 
 }
 
-function displayFirstNumber() {
+function displayNumber(number) {
 
     let display = document.querySelector('.display');
-    display.innerText = calc.firstNumber;
+    display.innerText = number;
 }
 
 function appendFirstNumber(e) {
@@ -20,7 +20,7 @@ function appendFirstNumber(e) {
     if (calc.firstNumber.length < 10) {
     calc.firstNumber += e.target.innerText;
     console.log(`append:`, calc.firstNumber);
-    displayFirstNumber();
+    displayNumber(calc.firstNumber);
     }
 
     
@@ -30,7 +30,7 @@ function createFirstNumber(e) {
 
     calc.firstNumber = e.target.innerText;
     console.log(`create:`, calc.firstNumber);
-    displayFirstNumber();
+    displayNumber(calc.firstNumber);
 }
 
 function clearCalc() {
@@ -42,6 +42,53 @@ function clearCalc() {
     let display = document.querySelector('.display');
     display.innerText = '0';
 }
+
+function assignOperator(e) {
+    calc.operator = e.target.innerText;
+    console.log(`assignOperator`, calc.operator)
+}
+
+function createSecondNumber(e) {
+    calc.secondNumber = e.target.innerText;
+    displayNumber(calc.secondNumber);
+}
+
+function multiply(obj) {
+    
+   let firstNumber = Number(obj.firstNumber);
+   let secondNumber = Number(obj.secondNumber);
+   calc.result = firstNumber * secondNumber;
+   displayNumber(calc.result);
+}
+
+function add(obj) {
+    
+    let firstNumber = Number(obj.firstNumber);
+    let secondNumber = Number(obj.secondNumber);
+    calc.result = firstNumber + secondNumber;
+    displayNumber(calc.result);
+ }
+
+ function subtract(obj) {
+    
+    let firstNumber = Number(obj.firstNumber);
+    let secondNumber = Number(obj.secondNumber);
+    calc.result = firstNumber - secondNumber;
+    displayNumber(calc.result);
+ }
+
+ function divide(obj) {
+    
+    let firstNumber = Number(obj.firstNumber);
+    let secondNumber = Number(obj.secondNumber);
+    if (secondNumber === 0) {
+        calc.result = "Nope (Hit A/C)"
+        displayNumber(calc.result);
+    } else {
+    calc.result = firstNumber / secondNumber;
+    displayNumber(calc.result);
+    }
+ }
 
 let calc = {};
 
@@ -65,6 +112,38 @@ function btnClicked(e) {
    if(e.target.className === 'clear') {
     
     clearCalc();
-   
+   }
+
+   if(!calc.hasOwnProperty('operator') && (e.target.className === 'operator')) {
+    
+     assignOperator(e);
+   }
+
+   if(!calc.hasOwnProperty('secondNumber') && calc.hasOwnProperty('operator') && (e.target.className === 'operand')) {
+
+    createSecondNumber(e);
+   }
+
+   if (e.target.className === 'equals') {
+
+    if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('secondNumber') && 
+        calc.hasOwnProperty('operator')) {
+
+      switch(calc.operator) {
+        case '*': 
+            multiply(calc);
+            break;
+        case '+':
+            add(calc);
+            break;
+        case '-':
+            subtract(calc);
+            break;
+        case '/':
+            divide(calc);
+            break;
+      }
+        
+   }
 }
 }
