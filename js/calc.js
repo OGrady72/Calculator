@@ -59,6 +59,7 @@ function multiply(obj) {
    let secondNumber = Number(obj.secondNumber);
    calc.result = firstNumber * secondNumber;
    displayNumber(calc.result);
+   deleteCalcNumbers();
 }
 
 function add(obj) {
@@ -67,6 +68,7 @@ function add(obj) {
     let secondNumber = Number(obj.secondNumber);
     calc.result = firstNumber + secondNumber;
     displayNumber(calc.result);
+    deleteCalcNumbers();
  }
 
  function subtract(obj) {
@@ -75,6 +77,7 @@ function add(obj) {
     let secondNumber = Number(obj.secondNumber);
     calc.result = firstNumber - secondNumber;
     displayNumber(calc.result);
+    deleteCalcNumbers();
  }
 
  function divide(obj) {
@@ -87,7 +90,33 @@ function add(obj) {
     } else {
     calc.result = firstNumber / secondNumber;
     displayNumber(calc.result);
+    deleteCalcNumbers();
+
     }
+ }
+
+ function deleteCalcNumbers() {
+    delete calc.firstNumber;
+    delete calc.secondNumber;
+    delete calc.operator;
+ }
+
+ function operate() {
+
+    switch(calc.operator) {
+        case '*': 
+            multiply(calc);
+            break;
+        case '+':
+            add(calc);
+            break;
+        case '-':
+            subtract(calc);
+            break;
+        case '/':
+            divide(calc);
+            break;
+      }
  }
 
 let calc = {};
@@ -95,6 +124,11 @@ let calc = {};
 function btnClicked(e) {
     
     console.log(e);
+
+    if (e.target.className === 'operator' && calc.hasOwnProperty('result')) {
+      calc.firstNumber = calc.result;
+      
+    }
     
    // e.target.style.opacity = .8;
 
@@ -129,21 +163,8 @@ function btnClicked(e) {
     if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('secondNumber') && 
         calc.hasOwnProperty('operator')) {
 
-      switch(calc.operator) {
-        case '*': 
-            multiply(calc);
-            break;
-        case '+':
-            add(calc);
-            break;
-        case '-':
-            subtract(calc);
-            break;
-        case '/':
-            divide(calc);
-            break;
-      }
-        
-   }
+            operate();
+      
+        }
 }
 }
