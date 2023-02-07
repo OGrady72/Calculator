@@ -17,12 +17,23 @@ function displayNumber(number) {
 
 function appendFirstNumber(e) {
 
+    console.log(`appendFirstNumber`, typeof(calc.firstNumber));
+
     if (calc.firstNumber.length < 10) {
     calc.firstNumber += e.target.innerText;
     console.log(`append:`, calc.firstNumber);
     displayNumber(calc.firstNumber);
     }
+    
+}
 
+function appendSecondNumber(e) {
+
+    if (calc.secondNumber.length < 10) {
+    calc.secondNumber += e.target.innerText;
+    console.log(`append:`, calc.secondNumber);
+    displayNumber(calc.secondNumber);
+    }
     
 }
 
@@ -40,7 +51,7 @@ function clearCalc() {
     delete calc.result;
   
     let display = document.querySelector('.display');
-    display.innerText = '0';
+    display.innerText = 0;
 }
 
 function assignOperator(e) {
@@ -125,10 +136,16 @@ function btnClicked(e) {
     
     console.log(e);
 
-    if (e.target.className === 'operator' && calc.hasOwnProperty('result')) {
-      calc.firstNumber = calc.result;
-      
-    }
+
+
+
+
+    if ((e.target.className === 'operator' || e.target.className === 'operand') && calc.hasOwnProperty('result')) {
+        calc.firstNumber = calc.result;
+        delete calc.result;
+        
+      }
+
     
    // e.target.style.opacity = .8;
 
@@ -153,18 +170,39 @@ function btnClicked(e) {
      assignOperator(e);
    }
 
+   if(calc.hasOwnProperty('secondNumber') && calc.hasOwnProperty('operator') && (e.target.className === 'operand')) {
+    appendSecondNumber(e);
+   }
+
    if(!calc.hasOwnProperty('secondNumber') && calc.hasOwnProperty('operator') && (e.target.className === 'operand')) {
 
     createSecondNumber(e);
    }
 
-   if (e.target.className === 'equals') {
+   
+
+   if (e.target.className === 'equals')  {
 
     if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('secondNumber') && 
         calc.hasOwnProperty('operator')) {
 
             operate();
-      
+            
+       }
+   }
+       if  (e.target.className =='operator') {
+
+        if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('secondNumber') && 
+            calc.hasOwnProperty('operator')) {
+    
+                operate();
+                assignOperator(e);
+                
+           }
         }
+//    if (e.target.className === 'operator') {
+//        assignOperator(e)
+//    }
+console.table(calc);  
 }
-}
+
