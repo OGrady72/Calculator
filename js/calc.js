@@ -140,12 +140,8 @@ function btnClicked(e) {
 
 
 
-    if ((e.target.className === 'operator' || e.target.className === 'operand') && calc.hasOwnProperty('result')) {
-        calc.firstNumber = calc.result;
-        delete calc.result;
-        
-      }
-
+   
+     
     
    // e.target.style.opacity = .8;
 
@@ -200,6 +196,19 @@ function btnClicked(e) {
                 
            }
         }
+
+        if ((e.target.className === 'operand') && calc.hasOwnProperty('result')) {
+            calc.firstNumber = e.target.innerText;
+            delete calc.result;
+            
+          }
+
+          if ((e.target.className === 'operator' && calc.hasOwnProperty('result'))) {
+            calc.firstNumber = calc.result;
+            delete calc.result;
+            
+          }
+    
 //    if (e.target.className === 'operator') {
 //        assignOperator(e)
 //    }
