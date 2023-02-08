@@ -7,6 +7,10 @@ function activateCalc(e) {
         button.addEventListener('click', btnClicked) 
     
     }); 
+
+    let periodButton = document.getElementById('period');
+    
+        periodButton.disabled = true;
 }
 
 function displayNumber(number) {
@@ -138,6 +142,7 @@ function add(obj) {
 let calc = {};
 
 function btnClicked(e) {
+   
     
     console.log(e);
 
@@ -272,6 +277,11 @@ function btnClicked(e) {
                 } 
          
  
-}
+           }
+
+           
+
+           
+
 console.table(calc); 
 }
