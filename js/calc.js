@@ -141,7 +141,13 @@ function btnClicked(e) {
     
     console.log(e);
 
-   // e.target.style.opacity = .8;
+ 
+    e.target.style.opacity = .8;
+
+    setTimeout(function() {
+        e.target.style.opacity = 1;
+    }, 150);
+    
 
    if (calc.hasOwnProperty('firstNumber') && (!calc.hasOwnProperty('operator'))
    && (e.target.className == 'operand')) {
