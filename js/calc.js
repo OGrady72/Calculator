@@ -136,13 +136,6 @@ function btnClicked(e) {
     
     console.log(e);
 
-
-
-
-
-   
-     
-    
    // e.target.style.opacity = .8;
 
    if (calc.hasOwnProperty('firstNumber') && (!calc.hasOwnProperty('operator'))
@@ -208,10 +201,36 @@ function btnClicked(e) {
             delete calc.result;
             
           }
-    
-//    if (e.target.className === 'operator') {
-//        assignOperator(e)
-//    }
+          
+          if (e.target.className === 'percent') {
+
+            if(calc.hasOwnProperty('firstNumber') && !calc.hasOwnProperty('operator')) {
+
+                percentCalc = Number(calc.firstNumber) / 100;
+                calc.firstNumber = String(percentCalc);
+                displayNumber(calc.firstNumber);
+            } else if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('secondNumber')) {
+
+                percentCalc = Number(calc.secondNumber) / 100;
+                calc.secondNumber = String(percentCalc);
+                displayNumber(calc.secondNumber);
+
+            } else if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('operator') && 
+                       (!calc.hasOwnProperty('secondNumber'))) {
+                         
+                        percentCalc = Number(calc.firstNumber) / 100;
+                        calc.firstNumber = String(percentCalc);
+                        displayNumber(calc.firstNumber);
+
+            }  else if (calc.hasOwnProperty('result')) {
+                        
+                        percentCalc = Number(calc.result) / 100;
+                        calc.result = String(percentCalc);
+                        displayNumber(calc.result);
+
+                        } 
+          }
+         
 console.table(calc);  
 }
 
