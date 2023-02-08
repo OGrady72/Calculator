@@ -112,6 +112,11 @@ function add(obj) {
     delete calc.operator;
  }
 
+ function plusMinus(num) {
+ 
+    return (num < 0) ?  Math.abs(num) : -num;
+ }
+
  function operate() {
 
     switch(calc.operator) {
@@ -230,7 +235,37 @@ function btnClicked(e) {
 
                         } 
           }
-         
-console.table(calc);  
-}
 
+          if (e.target.className ==='plusMinus') {
+            
+            if(calc.hasOwnProperty('firstNumber') && !calc.hasOwnProperty('operator')) {
+
+                calc.firstNumber = plusMinus(calc.firstNumber);
+                calc.firstNumber = String(calc.firstNumber);
+                displayNumber(calc.firstNumber);
+            
+            } else if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('secondNumber')) {
+
+                calc.secondNumber = plusMinus(calc.secondNumber);
+                calc.secondNumber = String(calc.secondNumber);
+                displayNumber(calc.secondNumber);
+
+            } else if (calc.hasOwnProperty('firstNumber') && calc.hasOwnProperty('operator') && 
+                      (!calc.hasOwnProperty('secondNumber'))) {
+              
+                calc.firstNumber = plusMinus(calc.firstNumber);
+                calc.firstNumber = String(calc.firstNumber);
+                displayNumber(calc.firstNumber);
+            
+            }  else if (calc.hasOwnProperty('result')) {
+                        
+                calc.result = plusMinus(calc.result);
+                calc.result = String(calc.result);
+                displayNumber(calc.result);
+
+                } 
+         
+ 
+}
+console.table(calc); 
+}
